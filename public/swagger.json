@@ -1,0 +1,795 @@
+{
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"IUser": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"user_name": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"roles": {
+						"items": {
+							"type": "string"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"_id",
+					"user_name",
+					"password",
+					"type"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IAddWaiterResponse": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"name": {
+						"type": "string"
+					},
+					"user": {
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/IUser"
+							},
+							{}
+						]
+					},
+					"address": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"_id",
+					"name",
+					"user",
+					"address"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IAddWaiterRequest": {
+				"properties": {
+					"name": {
+						"type": "string"
+					},
+					"address": {
+						"type": "string"
+					},
+					"user_name": {
+						"type": "string"
+					},
+					"password": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"name",
+					"address",
+					"user_name",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IMenuItem": {
+				"properties": {
+					"_id": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{}
+						]
+					},
+					"item_name": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"size": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number",
+						"format": "double"
+					},
+					"createdAt": {
+						"anyOf": [
+							{
+								"type": "string",
+								"format": "date-time"
+							},
+							{}
+						]
+					},
+					"updatedAt": {
+						"anyOf": [
+							{
+								"type": "string",
+								"format": "date-time"
+							},
+							{}
+						]
+					}
+				},
+				"required": [
+					"_id",
+					"item_name",
+					"type",
+					"size",
+					"price"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IAddMenuItemResponse": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"item_name": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"size": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number",
+						"format": "double"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"_id",
+					"item_name",
+					"type",
+					"size",
+					"price"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IAddMenuRequest": {
+				"properties": {
+					"item_name": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					},
+					"size": {
+						"type": "string"
+					},
+					"price": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"item_name",
+					"type",
+					"size",
+					"price"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ISingleOrderItem": {
+				"properties": {
+					"item": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"$ref": "#/components/schemas/IMenuItem"
+							}
+						]
+					},
+					"quantity": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"item",
+					"quantity"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IOrder": {
+				"properties": {
+					"_id": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{}
+						]
+					},
+					"waiter": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{}
+						]
+					},
+					"items": {
+						"anyOf": [
+							{
+								"items": {
+									"$ref": "#/components/schemas/ISingleOrderItem"
+								},
+								"type": "array"
+							},
+							{}
+						]
+					},
+					"order_table": {
+						"type": "number",
+						"format": "double"
+					},
+					"order_status": {
+						"type": "string"
+					},
+					"createdAt": {
+						"anyOf": [
+							{
+								"type": "string",
+								"format": "date-time"
+							},
+							{}
+						]
+					},
+					"updatedAt": {
+						"anyOf": [
+							{
+								"type": "string",
+								"format": "date-time"
+							},
+							{}
+						]
+					}
+				},
+				"required": [
+					"_id",
+					"waiter",
+					"items",
+					"order_table",
+					"order_status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IOrderBill": {
+				"properties": {
+					"_id": {
+						"type": "string"
+					},
+					"order_id": {
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/IOrder"
+							},
+							{}
+						]
+					},
+					"total_price": {
+						"type": "number",
+						"format": "double"
+					},
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/ISingleOrderItem"
+						},
+						"type": "array"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"_id",
+					"order_id",
+					"total_price",
+					"items"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ITakeOrderRequest": {
+				"properties": {
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/ISingleOrderItem"
+						},
+						"type": "array"
+					},
+					"order_table": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"items",
+					"order_table"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IWaiter": {
+				"properties": {
+					"_id": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{}
+						]
+					},
+					"name": {
+						"type": "string"
+					},
+					"user": {
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/IUser"
+							},
+							{}
+						]
+					},
+					"address": {
+						"type": "string"
+					},
+					"createdAt": {
+						"anyOf": [
+							{
+								"type": "string",
+								"format": "date-time"
+							},
+							{}
+						]
+					},
+					"updatedAt": {
+						"anyOf": [
+							{
+								"type": "string",
+								"format": "date-time"
+							},
+							{}
+						]
+					}
+				},
+				"required": [
+					"_id",
+					"name",
+					"user",
+					"address"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"IGetOrderResponse": {
+				"properties": {
+					"_id": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{}
+						]
+					},
+					"waiter": {
+						"anyOf": [
+							{
+								"$ref": "#/components/schemas/IWaiter"
+							},
+							{}
+						]
+					},
+					"items": {
+						"items": {
+							"$ref": "#/components/schemas/ISingleOrderItem"
+						},
+						"type": "array"
+					},
+					"order_table": {
+						"type": "number",
+						"format": "double"
+					},
+					"order_status": {
+						"type": "string"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time"
+					},
+					"updatedAt": {
+						"type": "string",
+						"format": "date-time"
+					}
+				},
+				"required": [
+					"_id",
+					"waiter",
+					"items",
+					"order_table",
+					"order_status"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ILoginResponse": {
+				"properties": {
+					"token_key": {
+						"type": "string"
+					},
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"token_key",
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ILoginRequest": {
+				"properties": {
+					"username": {
+						"type": "string",
+						"enum": [
+							"admin"
+						],
+						"nullable": false
+					},
+					"password": {
+						"type": "string",
+						"enum": [
+							"admin@123"
+						],
+						"nullable": false
+					}
+				},
+				"required": [
+					"username",
+					"password"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {
+			"api_key": {
+				"type": "http",
+				"name": "access_token",
+				"in": "headers",
+				"scheme": "Bearer"
+			}
+		}
+	},
+	"info": {
+		"title": "final",
+		"version": "1.0.0",
+		"description": "Final test",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "Muhammad Yasir"
+		}
+	},
+	"openapi": "3.0.0",
+	"paths": {
+		"/waiter/addWaiter": {
+			"post": {
+				"operationId": "AddWaiter",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IAddWaiterResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "This will add new waiter.\r\nLogin to get acess token for secured end points.",
+				"summary": "\"Add new waiter. Admin login required\"",
+				"tags": [
+					"Waiter"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IAddWaiterRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/menu/getMenu": {
+			"get": {
+				"operationId": "GetMenu",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/IMenuItem"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"description": "Get all menu Items",
+				"summary": "\"Open API to get Menu Items\"",
+				"tags": [
+					"Menu"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/menu/addMenuItem": {
+			"post": {
+				"operationId": "AddMenu",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IAddMenuItemResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "This will add new Item to the menu.\r\nLogin to get acess token for secured end points",
+				"summary": "\"Add new Item to menu. Admin login required\"",
+				"tags": [
+					"Menu"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IAddMenuRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/order/takeOrder": {
+			"post": {
+				"operationId": "TakeOrder",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IOrderBill"
+								}
+							}
+						}
+					}
+				},
+				"description": "This will create order for customer and return bill.\r\nLogin to get acess token for secured end points.\r\nWaiter will be added on runtime form user session.",
+				"summary": "\"Create order for waiter. Waiter login required\"",
+				"tags": [
+					"Order"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ITakeOrderRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/order/viewOrders": {
+			"get": {
+				"operationId": "ViewOrders",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"items": {
+										"$ref": "#/components/schemas/IGetOrderResponse"
+									},
+									"type": "array"
+								}
+							}
+						}
+					}
+				},
+				"description": "End point to view orders.\r\nLogin to get acess token for secured end points.\r\nReturn all orders for admin and particular waiter orders for waiter based on user session.",
+				"summary": "\"View Orders All/Waiter's\"",
+				"tags": [
+					"Order"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": []
+			}
+		},
+		"/order/updateOrderStatus": {
+			"put": {
+				"operationId": "UpdateStatus",
+				"responses": {
+					"200": {
+						"description": "Status Updated",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/IOrder"
+								}
+							}
+						}
+					}
+				},
+				"description": "This will update order status.\r\nLogin to get acess token for secured end points.",
+				"summary": "\"Update order status to waiting/completed. Admin login required\"",
+				"tags": [
+					"Order"
+				],
+				"security": [
+					{
+						"api_key": []
+					}
+				],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"properties": {
+									"status": {
+										"type": "string",
+										"enum": [
+											"waiting",
+											"completed"
+										]
+									},
+									"_id": {
+										"type": "string"
+									}
+								},
+								"required": [
+									"status",
+									"_id"
+								],
+								"type": "object"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/login": {
+			"post": {
+				"operationId": "Login",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ILoginResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "User credentials required.\r\nLogin to get acess token for secured end points",
+				"summary": "\"Use username: admin && password: admin@123 for admin login\"",
+				"tags": [
+					"Login"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/ILoginRequest"
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/"
+		}
+	]
+}
