@@ -13,7 +13,7 @@ let healthcheck = new health.HealthChecker();
 
 //AppConstants contain mongoDB login details
 import * as constants from "./utills/AppConstants";
-import { hostname } from "os";
+
 const PORT = process.env.PORT || 5000;
 
 //Initialize system

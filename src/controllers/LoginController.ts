@@ -4,6 +4,8 @@ import { UserClass } from "../repositories/UserRepository";
 import { ILoginRequest } from '../types/Requests/ILoginRequest';
 import { ILoginResponse } from '../types/Responses/ILoginResponses';
 import jwt, { Secret } from "jsonwebtoken";
+require('dotenv').config();
+
 @Route('/')
 @Tags('Login')
 export class LoginController {
@@ -17,11 +19,12 @@ export class LoginController {
 
     @Post('/login')
     async login(@Body() user: ILoginRequest): Promise<ILoginResponse> {
+
         const authuser = await new UserClass().ReturnUser(user);
         if (!authuser)
             throw new custom_Error(401, "User not verified", "Invalid credentials");
         return <ILoginResponse>{
-            token_key: jwt.sign(user, <Secret>process.env.TOKEN_KEY),
+            token_key: jwt.sign(JSON.stringify(authuser), <Secret>process.env.TOKEN_KEY),
             message: "Credentials Approved"
         }
     }
